@@ -1,0 +1,48 @@
+-- 1. Criar o banco de dados
+DROP DATABASE IF EXISTS sistema_aluguel;
+CREATE DATABASE sistema_aluguel;
+USE sistema_aluguel;
+
+-- 2. Tabela CLIENTE
+CREATE TABLE cliente (
+    codigoc INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100)
+);
+
+-- 3. Tabela VEICULO
+CREATE TABLE veiculo (
+    codigov INT PRIMARY KEY,
+    modelo VARCHAR(100),
+    marca VARCHAR(100),
+    disponivel BOOLEAN DEFAULT TRUE
+);
+
+-- 4. Tabela ALUGA
+CREATE TABLE aluga (
+    codigoc INT,
+    codigov INT,
+    data_aluguel DATE,
+    data_devolucao DATE,
+    PRIMARY KEY (codigoc, codigov, data_aluguel),
+    FOREIGN KEY (codigoc) REFERENCES cliente(codigoc),
+    FOREIGN KEY (codigov) REFERENCES veiculo(codigov)
+);
+
+-- 5. Inserir dados em CLIENTE
+INSERT INTO cliente (nome) VALUES
+('João Silva'),
+('Maria Oliveira'),
+('Carlos Souza');
+
+-- 6. Inserir dados em VEICULO
+INSERT INTO veiculo (codigov, modelo, marca, disponivel) VALUES
+(10, 'Civic', 'Honda', TRUE),
+(11, 'Gol', 'Volkswagen', TRUE),
+(12, 'Corolla', 'Toyota', TRUE);
+
+-- 7. Simular um aluguel (João alugou o Civic)
+INSERT INTO aluga (codigoc, codigov, data_aluguel, data_devolucao)
+VALUES (1, 10, '2025-05-26', '2025-06-01');
+
+-- Atualizar a disponibilidade do veículo
+UPDATE veiculo SET disponivel = FALSE WHERE codigov = 10;
