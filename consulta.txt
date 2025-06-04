@@ -17,7 +17,7 @@ CREATE TABLE veiculo (
     disponivel BOOLEAN DEFAULT TRUE
 );
 
--- 4. Tabela ALUGAA
+-- 4. Tabela ALUGA 2
 CREATE TABLE aluga (
     codigoc INT,
     codigov INT,
